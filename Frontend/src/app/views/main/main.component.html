@@ -1,0 +1,496 @@
+<!-- Google Tag Manager (noscript) -->
+<!--<noscript>-->
+  <!--<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"-->
+          <!--height="0" width="0" style="display:none;visibility:hidden"></iframe>-->
+<!--</noscript>-->
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="wrapper">
+
+  <!--<div class="sidebar" data-active-color="rose" data-background-color="black" data-image="../assets/img/sidebar-3.jpg">-->
+  <div class="sidebar" data-active-color="rose" data-background-color="black"
+       data-image="assets/img/dashboard/catrin-johnson-486188-unsplash.jpg"
+       style.display="{{isInLoginPage() && checkSize() ? 'none' : 'block'}}">
+    <div class="sidebar-wrapper">
+      <div class="user" *ngIf="loginStatus()==1">
+        <div class="info">
+          <div class="photo">
+            <!--<img src="http://localhost:8080/api/v1/user/file?path=images/12118677_925715314176721_1987028172390362012_n.jpg"/>-->
+            <img [src]="imagePath">
+          </div>
+          <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <span style="font-weight: bold;font-size: 13px;color: #e9b500">
+                         {{userName}}
+                        <b class="caret"></b>
+                    </span>
+          </a>
+          <div class="clearfix"></div>
+          <div class="collapse" id="collapseExample">
+            <ul class="nav" style="font-weight: lighter">
+              <li>
+                <a href="#">
+                  <i class="fa fa-user-circle"></i>
+                  <span class="sidebar-normal"> My Profile </span>
+                </a>
+              </li>
+              <li (click)="lock()">
+                <a>
+                  <i class="material-icons">lock_open</i>
+                  <span class="sidebar-normal"> Lock </span>
+                </a>
+              </li>
+              <li (click)="logout()">
+                <a>
+                  <i class="material-icons">fingerprint</i>
+                  <span class="sidebar-normal"> Sign Out </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="user" *ngIf="loginStatus()==2">
+        <div class="info">
+          <div class="photo">
+            <img [src]="imagePath">
+          </div>
+          <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <span style="font-weight: bold;font-size: 13px;color: #e9b500">
+                         {{userName}}
+                        <b class="caret"></b>
+                    </span>
+          </a>
+          <div class="clearfix"></div>
+          <div class="collapse" id="collapseExample">
+            <ul class="nav" style="font-weight: lighter">
+              <li>
+                <a href="#">
+                  <i class="fa fa-user-circle"></i>
+                  <span class="sidebar-normal"> My Profile </span>
+                </a>
+              </li>
+              <li (click)="lock()">
+                <a>
+                  <i class="material-icons">lock_open</i>
+                  <span class="sidebar-normal"> Lock </span>
+                </a>
+              </li>
+              <li (click)="logout()">
+                <a>
+                  <i class="material-icons">fingerprint</i>
+                  <span class="sidebar-normal"> Sign Out </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="user" *ngIf="loginStatus()==4">
+        <div class="info">
+          <div class="photo">
+            <img src="assets/img/faces/lock.png"/>
+            <i class="fa fa-power-off"></i>
+          </div>
+          <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <span style="font-weight: bold;font-size: 13px;color: #e9b500">
+                         Account is locked
+                        <b class="caret"></b>
+                    </span>
+          </a>
+          <div class="clearfix"></div>
+          <div class="collapse" id="collapseExample">
+            <ul class="nav">
+              <li (click)="unlock()">
+                <a>
+                  <i class="material-icons">lock_open</i>
+                  <span class="sidebar-normal"> Unlock </span>
+                </a>
+              </li>
+              <li (click)="logout()">
+                <a>
+                  <i class="material-icons">fingerprint</i>
+                  <span class="sidebar-normal"> Sign Out </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="user" *ngIf="loginStatus()==5">
+        <div class="info">
+          <div class="photo">
+            <img src="assets/img/faces/shut-down-icon (1).png"/>
+          </div>
+          <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <span style="font-weight: bold;font-size: 13px;color: #e9b500">
+                         You are not signed in
+                        <b class="caret"></b>
+                    </span>
+          </a>
+          <div class="clearfix"></div>
+          <div class="collapse" id="collapseExample">
+            <ul class="nav">
+              <li (click)="login()">
+                <a>
+                  <i class="material-icons">fingerprint</i>
+                  <span class="sidebar-normal"> Sign In </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <ul class="nav" *ngIf="loginStatus()==1">
+
+        <li class="btnMain {{compoDashboardIsActive()}}">
+          <a routerLink="/root/dashboard">
+            <i class="material-icons">dashboard</i>
+            <p> Dashboard </p>
+          </a>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#pagesExamples">
+            <i class="material-icons">assignment_ind</i>
+            <p> Enrollments
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="pagesExamples">
+            <ul class="nav">
+              <li class="btnMain {{compoStudentIsActive()}}">
+                <a routerLink="/root/main/student-reg/student-details" (click)="refreshPage()">
+                  <span class="sidebar-mini"> SR </span>
+                  <span class="sidebar-normal"> Student Registration </span>
+                </a>
+              </li>
+              <li>
+                <a href="pages/timeline.html">
+                  <span class="sidebar-mini"> DR </span>
+                  <span class="sidebar-normal"> Demonstrator Registration </span>
+                </a>
+              </li>
+              <li class="btnMain {{compoLecturerIsActive()}}">
+                <a routerLink="/root/main/lecturers-subjects/lecturer-details" href="#">
+                  <span class="sidebar-mini"> LSR </span>
+                  <span class="sidebar-normal"> Lecturer & Subjects </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="widgets.html">
+            <i class="material-icons">widgets</i>
+            <p> Widgets </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="charts.html">
+            <i class="material-icons">timeline</i>
+            <p> Charts </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="calendar.html">
+            <i class="material-icons">date_range</i>
+            <p> Calendar </p>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav" *ngIf="loginStatus()==2">
+
+        <li class="btnMain {{compoDashboardIsActive()}}">
+          <a routerLink="/root/dashboard">
+            <i class="material-icons">dashboard</i>
+            <p> Dashboard </p>
+          </a>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#pagesEnrollments">
+            <i class="material-icons">assignment_ind</i>
+            <p> Enrollments
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="pagesEnrollments">
+            <ul class="nav">
+              <li class="btnMain {{compoStudentIsActive()}}">
+                <a routerLink="/root/main/student-reg/student-details" (click)="refreshPage()">
+                  <span class="sidebar-mini"> SR </span>
+                  <span class="sidebar-normal"> Student Registration </span>
+                </a>
+              </li>
+              <li>
+                <a href="pages/timeline.html">
+                  <span class="sidebar-mini"> DR </span>
+                  <span class="sidebar-normal"> Demonstrator Registration </span>
+                </a>
+              </li>
+              <li class="btnMain {{compoLecturerIsActive()}}">
+                <a routerLink="/root/main/lecturers-subjects/lecturer-details" href="#">
+                  <span class="sidebar-mini"> LSR </span>
+                  <span class="sidebar-normal"> Lecturer & Subjects </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <a routerLink="/root/main/subjects">
+            <i class="material-icons">assignment</i>
+            <p> Course Work
+              <!--<b class="caret"></b>-->
+            </p>
+          </a>
+
+        </li>
+      </ul>
+      <ul class="nav" *ngIf="loginStatus()==4">
+
+        <li class="btnMain {{compoDashboardIsActive()}}">
+          <a routerLink="/root/dashboard">
+            <i class="material-icons">dashboard</i>
+            <p> Dashboard </p>
+          </a>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#componentsExamples">
+            <i class="material-icons">apps</i>
+            <p> Components
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="componentsExamples">
+            <ul class="nav">
+              <li>
+                <a href="components/buttons.html">
+                  <span class="sidebar-mini"> B </span>
+                  <span class="sidebar-normal"> Buttons </span>
+                </a>
+              </li>
+              <li>
+                <a href="components/grid.html">
+                  <span class="sidebar-mini"> GS </span>
+                  <span class="sidebar-normal"> Grid System </span>
+                </a>
+              </li>
+              <li>
+                <a href="components/panels.html">
+                  <span class="sidebar-mini"> P </span>
+                  <span class="sidebar-normal"> Panels </span>
+                </a>
+              </li>
+              <li>
+                <a href="components/sweet-alert.html">
+                  <span class="sidebar-mini"> SA </span>
+                  <span class="sidebar-normal"> Sweet Alert </span>
+                </a>
+              </li>
+              <li>
+                <a href="components/notifications.html">
+                  <span class="sidebar-mini"> N </span>
+                  <span class="sidebar-normal"> Notifications </span>
+                </a>
+              </li>
+              <li>
+                <a href="components/icons.html">
+                  <span class="sidebar-mini"> I </span>
+                  <span class="sidebar-normal"> Icons </span>
+                </a>
+              </li>
+              <li>
+                <a href="components/typography.html">
+                  <span class="sidebar-mini"> T </span>
+                  <span class="sidebar-normal"> Typography </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#formsExamples">
+            <i class="material-icons">content_paste</i>
+            <p> Forms
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="formsExamples">
+            <ul class="nav">
+              <li>
+                <a href="forms/regular.html">
+                  <span class="sidebar-mini"> RF </span>
+                  <span class="sidebar-normal"> Regular Forms </span>
+                </a>
+              </li>
+              <li>
+                <a href="forms/extended.html">
+                  <span class="sidebar-mini"> EF </span>
+                  <span class="sidebar-normal"> Extended Forms </span>
+                </a>
+              </li>
+              <li>
+                <a href="forms/validation.html">
+                  <span class="sidebar-mini"> VF </span>
+                  <span class="sidebar-normal"> Validation Forms </span>
+                </a>
+              </li>
+              <li>
+                <a href="forms/wizard.html">
+                  <span class="sidebar-mini"> W </span>
+                  <span class="sidebar-normal"> Wizard </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#tablesExamples">
+            <i class="material-icons">grid_on</i>
+            <p> Tables
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="tablesExamples">
+            <ul class="nav">
+              <li>
+                <a href="tables/regular.html">
+                  <span class="sidebar-mini"> RT </span>
+                  <span class="sidebar-normal"> Regular Tables </span>
+                </a>
+              </li>
+              <li>
+                <a href="tables/extended.html">
+                  <span class="sidebar-mini"> ET </span>
+                  <span class="sidebar-normal"> Extended Tables </span>
+                </a>
+              </li>
+              <li>
+                <a href="tables/datatables.net.html">
+                  <span class="sidebar-mini"> DT </span>
+                  <span class="sidebar-normal"> DataTables.net </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#mapsExamples">
+            <i class="material-icons">place</i>
+            <p> Maps
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="mapsExamples">
+            <ul class="nav">
+              <li>
+                <a href="maps/google.html">
+                  <span class="sidebar-mini"> GM </span>
+                  <span class="sidebar-normal"> Google Maps </span>
+                </a>
+              </li>
+              <li>
+                <a href="maps/fullscreen.html">
+                  <span class="sidebar-mini"> FSM </span>
+                  <span class="sidebar-normal"> Full Screen Map </span>
+                </a>
+              </li>
+              <li>
+                <a href="maps/vector.html">
+                  <span class="sidebar-mini"> VM </span>
+                  <span class="sidebar-normal"> Vector Map </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <a href="widgets.html">
+            <i class="material-icons">widgets</i>
+            <p> Widgets </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="charts.html">
+            <i class="material-icons">timeline</i>
+            <p> Charts </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="calendar.html">
+            <i class="material-icons">date_range</i>
+            <p> Calendar </p>
+          </a>
+        </li>
+
+      </ul>
+      <ul class="nav" *ngIf="loginStatus()==5">
+
+        <li class="btnMain {{compoDashboardIsActive()}}">
+          <a routerLink="/root/dashboard">
+            <i class="material-icons">dashboard</i>
+            <p> Dashboard </p>
+          </a>
+        </li>
+
+        <li>
+          <a data-toggle="collapse" href="#pagesExamples">
+            <i class="material-icons">assignment_ind</i>
+            <p> Enrollments
+              <b class="caret"></b>
+            </p>
+          </a>
+
+          <div class="collapse" id="pagesExamples">
+            <ul class="nav">
+              <li class="btnMain {{compoStudentIsActive()}}">
+                <a routerLink="/root/main/student-reg/student-details" (click)="refreshPage()">
+                  <span class="sidebar-mini"> SR </span>
+                  <span class="sidebar-normal"> Student Registration </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <!--<li>-->
+          <!--<a href="widgets.html">-->
+            <!--<i class="material-icons">widgets</i>-->
+            <!--<p> Widgets </p>-->
+          <!--</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+          <!--<a href="charts.html">-->
+            <!--<i class="material-icons">timeline</i>-->
+            <!--<p> Charts </p>-->
+          <!--</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+          <!--<a href="calendar.html">-->
+            <!--<i class="material-icons">date_range</i>-->
+            <!--<p> Calendar </p>-->
+          <!--</a>-->
+        <!--</li>-->
+      </ul>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

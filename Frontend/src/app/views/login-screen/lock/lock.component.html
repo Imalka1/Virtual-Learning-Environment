@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+    <form #frmLogin="ngForm" action="" method="post" (ngSubmit)="getLogin()">
+      <div class="card card-profile card-hidden" style="background-color: rgba(0,0,0,0.6);border: none">
+        <div class="card-avatar">
+          <a href="#pablo">
+            <img class="avatar" [src]="imagePath">
+          </a>
+        </div>
+        <!--<p class="category text-center">-->
+        <!--Or Be Classical-->
+        <!--</p>-->
+        <div class="card-content" style="padding-right: 20px;margin-top: 50px">
+          <h4 class="card-title" style="color: white">{{userName}}</h4>
+          <div class="input-group">
+        <span class="input-group-addon" style="padding-left: 0px">
+          <i class="material-icons">lock_outline</i>
+        </span>
+            <div class="form-group label-floating">
+              <label class="control-label">Password</label>
+              <input type="{{passwordVisibility?'text':'password'}}" class="form-control" [(ngModel)]="user.userPassword" name="txtPassword"
+                     style="color: white">
+            </div>
+            <span class="input-group-addon" style="cursor: pointer" (click)="passwordVisible()">
+          <i class="material-icons">visibility</i>
+        </span>
+          </div>
+        </div>
+        <div class="footer text-center">
+          <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg" style="color: #e9b500">
+            Unlock
+          </button>
+        </div>
+        <div *ngIf="failed" class="alert alert-danger"
+             style="margin-left: 10px;margin-right: 10px;text-align: center;color: #870c00;font-weight: bold">
+          Incorrect password
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12" style="color: rgba(255,255,255,0.71);font-size: 12px;text-align: center;margin-top: 450px">(Note:- System will automatically select the proper account type based on username and password)</div>
+</div>

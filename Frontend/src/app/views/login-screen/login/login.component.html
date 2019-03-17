@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+    <form #frmLogin="ngForm" action="" method="post" (ngSubmit)="getLogin()">
+      <div class="card card-login card-hidden" style="background-color: rgba(0,0,0,0.6);border: none">
+        <div class="card-header text-center" data-background-color="rose">
+          <h4 class="card-title">Login</h4>
+          <div class="social-line">
+            <a href="https://www.google.com/" target="_blank" class="btn btn-just-icon btn-simple">
+              <i class="fa fa-google"></i>
+            </a>
+            <a href="#pablo" class="btn btn-just-icon btn-simple">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+            <a href="https://www.dropbox.com/" target="_blank" class="btn btn-just-icon btn-simple">
+              <i class="fa fa-dropbox"></i>
+            </a>
+          </div>
+        </div>
+        <!--<p class="category text-center">-->
+        <!--Or Be Classical-->
+        <!--</p>-->
+        <div class="card-content">
+          <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">account_circle</i>
+             </span>
+            <div class="form-group label-floating">
+              <label class="control-label">I'm a/an</label>
+              <select class="selectpicker" data-style="select-with-transition" [(ngModel)]="user.accountType" name="txtType" style="color: white">
+                <option>admin</option>
+                <option>student</option>
+                <option>lecturer</option>
+                <option>demonstrator</option>
+              </select>
+            </div>
+            <!--<select class="selectpicker" data-style="select-with-transition" multiple title="Choose City" data-size="7">-->
+          </div>
+
+          <div class="input-group">
+        <span class="input-group-addon">
+          <i class="material-icons">face</i>
+        </span>
+
+            <div class="form-group label-floating">
+              <label class="control-label">Email or ID</label>
+              <input type="text" class="form-control" [(ngModel)]="user.userID" name="txtUserid" style="color: white">
+            </div>
+          </div>
+
+          <div class="input-group">
+        <span class="input-group-addon">
+          <i class="material-icons">lock_outline</i>
+        </span>
+            <div class="form-group label-floating">
+              <label class="control-label">Password</label>
+              <input type="{{passwordVisibility?'text':'password'}}" class="form-control" [(ngModel)]="user.userPassword" name="txtPassword"
+                     style="color: white">
+            </div>
+            <span class="input-group-addon" style="cursor: pointer" (click)="passwordVisible()">
+          <i class="material-icons">visibility</i>
+        </span>
+          </div>
+        </div>
+        <div class="footer text-center">
+          <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg" style="color: #e9b500">
+            Sign In
+          </button>
+        </div>
+        <div *ngIf="failed" class="alert alert-danger"
+             style="margin-left: 10px;margin-right: 10px;text-align: center;color: #870c00;font-weight: bold">
+          Incorrect username or password
+        </div>
+        <div class="row">
+          <div class="col-12" style="margin-left: 40px;color: #9e9e9e;font-size: 12px;cursor: pointer"
+               routerLink="/log-screen/email-verify">Forgot / Change Password?
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12" style="color: rgba(255,255,255,0.71);font-size: 12px;text-align: center;margin-top: 5px">(Note:- System will automatically set the account type via the previous login)</div>
+  <div class="col-12" style="color: rgba(255,255,255,0.71);font-size: 12px;text-align: center;margin-top: 5px">(Note:- System can maintain different account types with a single username and password)</div>
+</div>

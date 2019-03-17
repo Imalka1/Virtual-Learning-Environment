@@ -1,0 +1,331 @@
+<div class="row" *ngIf="loginStatus()!=5">
+  <div class="col-md-12 col-12">
+    <div class="card">
+      <div class="card-header card-header-icon" data-background-color="purple">
+        <i class="material-icons">assignment</i>
+      </div>
+
+      <div class="card-content">
+        <h4 class="card-title" style="color: #4e4e4e;font-size: 17px">PAYMENT DETAILS</h4>
+        <div class="toolbar">
+          <!--        Here you can write extra buttons/actions for the toolbar              -->
+        </div>
+        <div class="material-datatables">
+          <table class="table table-striped table-no-bordered table-hover datatables" cellspacing="0"
+                 width="100%" style="width:100%">
+            <thead>
+            <tr>
+              <th>Payment ID</th>
+              <th>Payment Method</th>
+              <th>Total Fee</th>
+              <th>Paid</th>
+              <th>Date</th>
+              <th class="disabled-sorting text-right" *ngIf="loginStatus()==1">Remove</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <th>Payment ID</th>
+              <th>Payment Method</th>
+              <th>Total Fee</th>
+              <th>Paid</th>
+              <th>Date</th>
+              <th *ngIf="loginStatus()==1" class="text-right">Remove</th>
+            </tr>
+            <div style="padding-top: 20px;right: 0px;position: absolute">
+              <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+            </div>
+            </tfoot>
+            <tbody>
+            <tr style="font-size: 16px;background-color: white;height: 50px;cursor: pointer" *ngFor="let paymentData of payments | paginate: { itemsPerPage: 5, currentPage: p }" (click)="selectPayment(paymentData)"
+                [ngClass]="{'green':selectedRow==paymentData.payId}">
+              <td>{{paymentData.payId}}</td>
+              <td>{{paymentData.payMethod}}</td>
+              <td>{{paymentData.totalFee}}</td>
+              <td>{{paymentData.paid}}</td>
+              <td>{{paymentData.date}}</td>
+              <td *ngIf="loginStatus()==1" class="text-right">
+                <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i
+                  class="material-icons">close</i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <style>
+            .green {
+              color: green;
+              font-weight: bold
+            }
+            .my-pagination /deep/ .ngx-pagination .current {
+              background: #e9b500;
+              border-radius: 100px;
+            }
+            .my-pagination /deep/ .ngx-pagination {
+              font-size: 17px;
+            }
+          </style>
+        </div>
+      </div><!-- end content-->
+    </div><!--  end card  -->
+  </div>
+</div> <!-- end col-md-12 -->
+<div class="row">
+  <div class="col-md-12 col-12">
+    <div class="card">
+      <form class="form-horizontal" (ngSubmit)="frmPayment.form.valid && savePayment()" #frmPayment="ngForm" action="" method="post">
+        <div class="card-header card-header-text" data-background-color="rose">
+          <h4 class="card-title" style="font-weight: lighter">PAYMENT</h4>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-content">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card-footer">
+                <div style="font-weight: bold" *ngIf="loginStatus()!=5">Note:- The system will automatically generate a new Payment ID and it will show on above table after you save your details.
+                </div>
+                <div style="font-weight: bold" *ngIf="loginStatus()==5">Note:- The browser is temporary saving your data until you do the payment. <br>Note:-
+                  Do the initial payment (total fee) to register to system. If not, system will rollback your data and will not register to the system.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="loginStatus()!=5">
+            <label class="col-sm-2 label-on-left">Payment ID</label>
+            <div class="col-sm-9">
+              <div class="form-group label-floating is-empty">
+                <label class="control-label"></label>
+                <input type="text" class="form-control" required="true" disabled [(ngModel)]="paymentId" name="paymentId">
+              </div>
+            </div>
+            <div class="col-sm-1">
+              <i class="fa fa-times fa-2x" style="color: red;cursor: pointer" (click)="resetId()"></i>
+            </div>
+          </div>
+          <!--<div class="row" *ngIf="loginStatus()!=5 && isActivePaymentStudent()">-->
+            <!--<label class="col-sm-2 label-on-left">Registration ID</label>-->
+            <!--<div class="col-sm-10">-->
+              <!--<div class="form-group label-floating is-empty">-->
+                <!--<label class="control-label"></label>-->
+                <!--<input type="text" class="form-control" disabled required="true" name="registrationId" [(ngModel)]="registrationId">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="row" *ngIf="loginStatus()!=5 && !isActivePaymentStudent()">-->
+            <!--<label class="col-sm-2 label-on-left">Semester Registration ID</label>-->
+            <!--<div class="col-sm-10">-->
+              <!--<div class="form-group label-floating is-empty">-->
+                <!--<label class="control-label"></label>-->
+                <!--<input type="text" class="form-control" disabled required="true">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="row">
+            <label class="col-sm-2 label-on-left">Student Name</label>
+            <div class="col-sm-10">
+              <div class="form-group label-floating is-empty">
+                <label class="control-label"></label>
+                <input type="text" class="form-control" required="true" disabled value="{{studentName}}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 label-on-left">Total Fee</label>
+            <div class="col-sm-10">
+              <div class="form-group label-floating is-empty">
+                <label class="control-label"></label>
+                <input type="text" class="form-control" required="true" disabled value="{{totalFee}}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 label-on-left">Paying Amount</label>
+            <div class="col-sm-10">
+              <div class="form-group label-floating is-empty">
+                <label class="control-label"></label>
+                <input type="text" class="form-control" required="true" name="txtAmount" #txtAmount="ngModel" [(ngModel)]="payingAmount">
+                <span *ngIf="frmPayment.submitted && txtAmount.invalid" class="invalid-feedback">
+                  <span *ngIf="txtAmount.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 label-on-left">Payment Method</label>
+            <div class="col-sm-10">
+              <select class="form-control" data-style="select-with-transition" title="Single Select"
+                      name="txtPaymentMethod" [(ngModel)]="paymentType">
+                <option>Card</option>
+                <option *ngIf="loginStatus()==1">Cash</option>
+                <option *ngIf="loginStatus()==1">Cheque</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="paymentType=='Cash'">
+          </div>
+          <div *ngIf="paymentType=='Card'">
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Name On Card</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="nameOnCard" #nameOnCard="ngModel" [(ngModel)]="cardPayment.nameOnCard">
+                  <span *ngIf="frmPayment.submitted && nameOnCard.invalid" class="invalid-feedback">
+                  <span *ngIf="nameOnCard.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Card Number</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="cardNo" #cardNo="ngModel" [(ngModel)]="cardPayment.cardNumber">
+                  <span *ngIf="frmPayment.submitted && cardNo.invalid" class="invalid-feedback">
+                  <span *ngIf="cardNo.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Expiry Date</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" placeholder="MM/DD" name="expDate" #expDate="ngModel" [(ngModel)]="cardPayment.expiryDate">
+                  <span *ngIf="frmPayment.submitted && expDate.invalid" class="invalid-feedback">
+                  <span *ngIf="expDate.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Security Code</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="securityCode" #securityCode="ngModel" [(ngModel)]="cardPayment.securityCode">
+                  <span *ngIf="frmPayment.submitted && securityCode.invalid" class="invalid-feedback">
+                  <span *ngIf="securityCode.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Zip/Postal Code</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="zipCode" #zipCode="ngModel" [(ngModel)]="cardPayment.zipCode">
+                  <span *ngIf="frmPayment.submitted && zipCode.invalid" class="invalid-feedback">
+                  <span *ngIf="zipCode.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="paymentType=='Cheque'">
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Cheque Number</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="txtChequeNo" #txtChequeNo="ngModel" [(ngModel)]="chequePayment.chequeNumber">
+                  <span *ngIf="frmPayment.submitted && txtChequeNo.invalid" class="invalid-feedback">
+                  <span *ngIf="txtChequeNo.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Bank Name</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="txtBankName" #txtBankName="ngModel" [(ngModel)]="chequePayment.bankName">
+                  <span *ngIf="frmPayment.submitted && txtBankName.invalid" class="invalid-feedback">
+                  <span *ngIf="txtBankName.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Branch</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="txtBranch" #txtBranch="ngModel" [(ngModel)]="chequePayment.branch">
+                  <span *ngIf="frmPayment.submitted && txtBranch.invalid" class="invalid-feedback">
+                  <span *ngIf="txtBranch.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 label-on-left">Account Number</label>
+              <div class="col-sm-10">
+                <div class="form-group label-floating is-empty">
+                  <label class="control-label"></label>
+                  <input type="text" class="form-control" required="true" name="txtAccNo" #txtAccNo="ngModel" [(ngModel)]="chequePayment.accNumber">
+                  <span *ngIf="frmPayment.submitted && txtAccNo.invalid" class="invalid-feedback">
+                  <span *ngIf="txtAccNo.errors.required" style="color: red;font-weight: bold">Required</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12" style="height: 50px"></div>
+          </div>
+          <div class="row" style="padding-left: 50px" *ngIf="loginStatus()!=5 && !isActivePaymentStudent()">
+            <div class="col-sm-6">
+              <div class="card-footer">
+                <button type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)" (click)="previousPage()">Previous</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card-footer">
+                <button *ngIf="loginStatus()==1" type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)">Submit / Update Payment</button>
+                <button *ngIf="loginStatus()!=1" type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)">Submit Payment</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="padding-left: 50px" *ngIf="loginStatus()!=5 && isActivePaymentStudent()">
+            <div class="col-sm-4">
+              <div class="card-footer">
+                <button type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)" (click)="previousPage()">Previous</button>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card-footer">
+                <button *ngIf="loginStatus()==1" type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)">Submit / Update Payment</button>
+                <button *ngIf="loginStatus()!=1" type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)">Submit Payment</button>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card-footer">
+                <button type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)" (click)="nextPage()">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="padding-left: 50px" *ngIf="loginStatus()==5">
+            <div class="col-sm-6">
+              <div class="card-footer">
+                <button type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)" (click)="previousPage()">Previous</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card-footer">
+                <button *ngIf="loginStatus()!=1" type="submit" class="btn btn-fill" style="left: 50%;transform: translateX(-50%)">Submit Payment</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+    <div class="card card-login card-hidden" style="background-color: rgba(0,0,0,0.6);border: none">
+      <div class="card-header text-center" data-background-color="rose">
+        <h4 class="card-title">Email Verification</h4>
+        <div class="social-line">
+          <a href="https://www.google.com/" target="_blank" class="btn btn-just-icon btn-simple">
+            <i class="fa fa-google"></i>
+          </a>
+          <a href="#pablo" class="btn btn-just-icon btn-simple">
+            <i class="fa fa-youtube-play"></i>
+          </a>
+          <a href="https://www.dropbox.com/" target="_blank" class="btn btn-just-icon btn-simple">
+            <i class="fa fa-dropbox"></i>
+          </a>
+        </div>
+      </div>
+      <!--<p class="category text-center">-->
+      <!--Or Be Classical-->
+      <!--</p>-->
+      <div class="card-content">
+        <form #frmLogin="ngForm" action="" method="post" (ngSubmit)="sendEmail()">
+          <!--<div class="input-group">-->
+          <!--<span class="input-group-addon">-->
+          <!--<i class="material-icons">face</i>-->
+          <!--</span>-->
+
+          <!--<div class="form-group label-floating">-->
+          <!--<label class="control-label">Username</label>-->
+          <!--<input type="text" class="form-control" [(ngModel)]="email.userName" name="txtUserid" style="color: white"-->
+          <!--(keyup)="setEmail()">-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="input-group">
+        <span class="input-group-addon">
+          <i class="material-icons">email</i>
+        </span>
+            <div class="form-group label-floating">
+              <label class="control-label">Email</label>
+              <input type="text" class="form-control" name="txtEmail" style="color: white" [(ngModel)]="email.emailAddress">
+            </div>
+          </div>
+          <div class="footer text-center">
+            <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg" style="color: #e9b500">
+              Send
+            </button>
+          </div>
+          <div *ngIf="failed" class="alert alert-danger"
+               style="margin-left: 10px;margin-right: 10px;text-align: center;color: #870c00;font-weight: bold;width: 100%">
+            {{afterEmail.reply}}
+          </div>
+        </form>
+        <div *ngIf="success">
+          <div class="input-group">
+        <span class="input-group-addon">
+          <i class="material-icons">subject</i>
+        </span>
+            <div class="form-group label-floating">
+              <label class="control-label">Verification Code</label>
+              <input type="text" class="form-control" #verNumber name="txtCode" style="color: white">
+            </div>
+          </div>
+          <div class="footer text-center">
+            <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg" style="color: #e9b500"
+                    (click)="verifyNumber()">
+              Submit
+            </button>
+          </div>
+          <div *ngIf="notVerified" class="alert alert-danger"
+               style="margin-left: 10px;margin-right: 10px;text-align: center;color: #870c00;font-weight: bold;width: 100%;">
+            Invalid verification code
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12" style="color: rgba(255,255,255,0.71);font-size: 12px;text-align: center;margin-top: 50px">(Note:- System will send a verification code to your email, check your email and enter the verification code to reset your password)</div>
+</div>

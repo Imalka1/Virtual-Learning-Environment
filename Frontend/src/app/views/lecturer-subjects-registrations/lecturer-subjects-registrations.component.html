@@ -1,0 +1,49 @@
+<!-- multistep form -->
+<div class="main-panel">
+  <nav class="navbar navbar-transparent navbar-absolute" style="background-color: #FAFAFA">
+    <div class="container-fluid">
+      <!--<div class="navbar-minimize">-->
+      <!--<button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon"-->
+      <!--style="background-color: grey">-->
+      <!--<i class="material-icons visible-on-sidebar-regular">more_vert</i>-->
+      <!--<i class="material-icons visible-on-sidebar-mini">view_list</i>-->
+      <!--</button>-->
+      <!--</div>-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" style="color: grey"> Lecturer with Subjects Enrollment </a>
+      </div>
+      <style>
+        @media (min-width: 992px) {
+          #sec1 {
+            width: 49%
+          }
+
+          #sec2 {
+            width: 50.5%
+          }
+        }
+      </style>
+      <ul class="nav nav-tabs wizard" #wizardComp>
+        <li class="tab-color" style="width: 49.7%;"><a data-toggle="tab" aria-expanded="false"><span class="nmbr">1</span> Lecturer Registration</a></li>
+        <!--<li style="width: 33%;"><a data-toggle="tab" aria-expanded="false"><span class="nmbr">2</span> Lecturer Registration</a></li>-->
+        <li style="width: 49.7%;"><a data-toggle="tab" aria-expanded="false"><span class="nmbr">2</span> Subjects Registration</a>
+        </li>
+      </ul>
+      <router-outlet></router-outlet>
+    </div>
+    <footer class="footer" style="background-color: white;border-top: 1px solid #e7e7e7">
+      <div class="container-fluid">
+        <p class="copyright pull-right">
+          Copyright &copy; {{getYear()}} - University Of Sri Jayewardenapura , Virtual Learning Environment / Developed by
+          Imalka Gunawardana
+        </p>
+      </div>
+    </footer>
+  </nav>
+</div>

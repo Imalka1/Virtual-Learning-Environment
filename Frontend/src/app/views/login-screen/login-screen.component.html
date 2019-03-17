@@ -1,0 +1,61 @@
+<div class="off-canvas-sidebar">
+  <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+    <!--<nav class="navbar navbar-transparent navbar-absolute" style="background-color: #FAFAFA">-->
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <a class="navbar-brand">Virtual Learning Environment</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li routerLinkActive="active">
+            <a routerLink="/root/dashboard">
+              <i class="material-icons">dashboard</i>
+              Dashboard
+            </a>
+          </li>
+          <!--<li routerLinkActive="active">-->
+          <!--<a routerLink="/log-screen/login">-->
+          <!--<i class="material-icons">fingerprint</i>-->
+          <!--Login-->
+          <!--</a>-->
+          <!--</li>-->
+          <!--<li routerLinkActive="active">-->
+          <!--<a routerLink="/log-screen/lock">-->
+          <!--<i class="material-icons">lock_open</i>-->
+          <!--Lock-->
+          <!--</a>-->
+          <!--</li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="wrapper wrapper-full-page">
+    <div class="full-page {{getPage()}}-page" filter-color="black"
+         data-image="assets/img/dashboard/aleks-dorohovich-26-unsplash.jpg" style="background-size: cover;">
+      <div class="content">
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+      <footer class="footer" style="padding: 0px">
+        <div class="container" style="margin-right: 0px">
+          <p class="copyright pull-right">
+            Copyright &copy; {{getYear()}} - University Of Sri Jayewardenapura , Virtual Learning Environment /
+            Developed
+            by
+            Imalka Gunawardana
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
